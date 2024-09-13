@@ -36,8 +36,11 @@ if (file_exists($autoloadPath)) {
     require_once $autoloadPath;
 }
 
+require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleInstallHelper.php';
+
 class BuiltForJsExample extends Module
 {
+    protected $iHelper;
     protected $config_form = false;
 
     private $container;
@@ -66,6 +69,8 @@ class BuiltForJsExample extends Module
                 $this->getLocalPath()
             );
         }
+
+        $this->iHelper = new BuiltForJsExampleInstallHelper($this);
     }
 
     public function install()
@@ -78,12 +83,28 @@ class BuiltForJsExample extends Module
         return parent::uninstall();
     }
 
+    public function enable($force_all = false)
+    {
+        return parent::enable($force_all) && $this->iHelper->enable();
+    }
+
+    public function disable($force_all = false)
+    {
+        return $this->iHelper->disable() && parent::disable($force_all);
+    }
+
     /**
      * Load the configuration content
      */
     public function getContent()
     {
+        // added controller for easier ajax queries
+        // moved content rendering to $this->displayContent() method
+        Tools::redirectAdmin($this->context->link->getAdminLink('AdminBuiltForJsExample'));
+    }
 
+    public function displayContent()
+    {
         # Load dependencies manager
         $mboInstaller = new \Prestashop\ModuleLibMboInstaller\DependencyBuilder($this);
 
@@ -147,7 +168,7 @@ class BuiltForJsExample extends Module
          * *******************/
 
         // Load context for PsBilling
-        $billingFacade = $this->getService('builtforjsexample.ps_billings_facade');   
+        $billingFacade = $this->getService('builtforjsexample.ps_billings_facade');
         $partnerLogo = $this->getLocalPath() . 'logo.png';
 
         // Billing
