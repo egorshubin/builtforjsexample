@@ -36,6 +36,9 @@ npm run build
 
 ## Changelog
 
+### Fork by egorshubin
+- Create another JS interface in dependency_builder.tpl. Its previous version with external script had bugs and couldn't be fixed
+
 ### v2.0.0
 
 - Remove old dependencies in composer.json
