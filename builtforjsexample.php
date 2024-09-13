@@ -91,7 +91,10 @@ class BuiltForJsExample extends Module
         {
             $dependencies = $mboInstaller->handleDependencies();
 
-            $this->smarty->assign('dependencies', $dependencies);
+            $this->context->smarty->assign([
+                'pathApp' => $this->getPathUri() . 'views/js/dependency_builder/js/app.js',
+                'chunkVendor' => $this->getPathUri() . 'views/js/dependency_builder/js/chunk-vendors.js',
+            ]);
 
             return $this->display(__FILE__, 'views/templates/admin/dependency_builder.tpl');
         }

@@ -1,17 +1,5 @@
-<!-- Load cdc library -->
-<script src="https://assets.prestashop3.com/dst/mbo/v1/mbo-cdc-dependencies-resolver.umd.js"></script>
+<link href="{$pathApp|escape:'htmlall':'UTF-8'}" rel=preload as=script>
 
-<!-- cdc container -->
-<div id="cdc-container"></div>
-
-<script defer>
-  const renderMboCdcDependencyResolver = window.mboCdcDependencyResolver.render
-  const context = {
-    ...{$dependencies|json_encode},
-    onDependenciesResolved: () => location.reload(),
-    onDependencyResolved: (dependencyData) => console.log('Dependency installed', dependencyData), // name, displayName, version
-    onDependencyFailed: (dependencyData) => console.log('Failed to install dependency', dependencyData),
-    onDependenciesFailed: () => console.log('There are some errors'),
-  }
-  renderMboCdcDependencyResolver(context, '#cdc-container')
-</script>
+<div id="dependency_builder-app"></div>
+<script src="{$chunkVendor|escape:'htmlall':'UTF-8'}"></script>
+<script src="{$pathApp|escape:'htmlall':'UTF-8'}"></script>

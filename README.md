@@ -8,6 +8,32 @@ First use the following command to install all the packages from the composer.js
 composer install --no-dev -o
 ```
 
+Make sure you have node and npm installed
+```shell script
+node -v
+npm -v
+```
+Go to dev folder and install dependencies
+```shell script
+cd /var/www/html/modules/builtforjsexample/dev/dependency_builder
+npm install
+```
+
+In the vue.config.js file, ensure you replace the module name 'builtforjsexample' in the publicPath with your actual module name.
+```shell script
+publicPath: '../modules/builtforjsexample/views/js/dependency_builder/'
+```
+
+To run the project in development mode with file watching (live reloading upon saving files), use the following command:
+```shell script
+npm run dev
+```
+
+When you're ready to build the project for production (optimized files for performance), you can run:
+```shell script
+npm run build
+```
+
 ## Changelog
 
 ### v2.0.0

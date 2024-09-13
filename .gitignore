@@ -2,3 +2,4 @@
 config_*.xml
 composer.phar
 /dev/dependency_builder/node_modules/
+/views/js/dependency_builder/
