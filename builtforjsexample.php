@@ -51,7 +51,7 @@ class BuiltForJsExample extends Module
     {
         $this->name = 'builtforjsexample';
         $this->tab = 'administration';
-        $this->version = '2.0.0';
+        $this->version = '1.0.0';
         $this->author = 'PrestaShop';
         $this->need_instance = 0;
 
@@ -113,8 +113,6 @@ class BuiltForJsExample extends Module
 
         if( !$mboInstaller->areDependenciesMet() )
         {
-            $dependencies = $mboInstaller->handleDependencies();
-
             $this->context->smarty->assign([
                 'pathApp' => $this->getPathUri() . 'views/js/dependency_builder/js/app.js',
                 'chunkVendor' => $this->getPathUri() . 'views/js/dependency_builder/js/chunk-vendors.js',

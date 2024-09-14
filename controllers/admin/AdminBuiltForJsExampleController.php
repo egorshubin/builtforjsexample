@@ -22,9 +22,8 @@ class AdminBuiltForJsExampleController extends ModuleAdminController
     {
         try {
             $dependencyBuilder = new BuiltForJsExampleDependencyBuilder($this->module);
-            $dependencyBuilder->processDependency();
 
-            exit(json_encode(true));
+            exit(json_encode($dependencyBuilder->processDependency()));
         } catch (Exception $exception) {
             $this->module->eHelper->throwError($exception);
         }

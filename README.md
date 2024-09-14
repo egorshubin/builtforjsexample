@@ -38,16 +38,7 @@ npm run build
 
 ### Fork by egorshubin
 - Create another JS interface in dependency_builder.tpl. Its previous version with external script had bugs and couldn't be fixed
-
-### v2.0.0
-
-- Remove old dependencies in composer.json
-- Update [prestashop/module-lib-mbo-installer](https://github.com/PrestaShopCorp/module-lib-mbo-installer) to version 1.0
-- Add new dependency management system
-
-### v1.0.0
-
-- Initial version
+- This fork always requires ps_eventbus module
 
 ## Known issues
 
