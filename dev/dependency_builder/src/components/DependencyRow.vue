@@ -1,8 +1,8 @@
 <template>
   <div class="depRowWrapper">
     <div class="depRow">
-      <i>{{props.status}}</i>
-      <span>{{ props.name }}</span>
+      <DependencyIcon :status="props.status"></DependencyIcon>
+      <span class="row-name">{{ props.name }}</span>
     </div>
     <div class="depRowError" v-if="props.errorMessage">
       {{props.errorMessage}}
@@ -12,6 +12,7 @@
 
 <script setup>
 import { defineProps} from 'vue'
+import DependencyIcon from "@/components/DependencyIcon";
 const props = defineProps({
   name: String,
   status: Number,
@@ -24,5 +25,13 @@ const props = defineProps({
 .depRow {
   display: flex;
   align-items: center;
+}
+.row-name {
+  margin-left: 10px;
+}
+.depRowWrapper {
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>
