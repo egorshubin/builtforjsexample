@@ -28,10 +28,10 @@ const props = defineProps({
 }
 .row-name {
   margin-left: 10px;
+  font-weight: bold;
 }
 .depRowWrapper {
   margin-bottom: 20px;
   font-size: 14px;
-  font-weight: bold;
 }
 </style>

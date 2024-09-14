@@ -15,4 +15,9 @@ class AdminBuiltForJsExampleController extends ModuleAdminController
 
         parent::initContent();
     }
+
+    public function ajaxProcessProcessDependency()
+    {
+        exit(json_encode(true));
+    }
 }

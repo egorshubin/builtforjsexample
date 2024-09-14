@@ -22,6 +22,7 @@
 import { ref } from 'vue'
 import DependencyRow from "@/components/DependencyRow";
 import {ERROR_STATUS, LOADING_STATUS, NO_STATUS, SUCCESS_STATUS} from "@/config/constants";
+import {processDependency} from "@/composables/request";
 
 const rows = ref([
   { name: 'PrestaShop Marketplace in your Back Office', module: 'ps_mbo', status: NO_STATUS, errorMessage: null, trace: null },
@@ -51,16 +52,16 @@ const retry = async () => {
 
 const sendRequest = async (row) => {
   row.status = LOADING_STATUS
-  setTimeout(() => {
-    const isSuccess = Math.random() > 0.5
-    if (isSuccess) {
+
+  try {
+    const response = await processDependency(row.module)
+    if (response.data) {
       row.status = SUCCESS_STATUS
-    } else {
-      row.status = ERROR_STATUS
-      row.errorMessage = `Failed to install ${row.name}`
-      row.trace = 'Stack trace example'
     }
-  }, 5000)
+  } catch(err) {
+    console.log(err)
+    row.status = ERROR_STATUS
+  }
 }
 
 </script>
