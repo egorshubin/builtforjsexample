@@ -23,6 +23,7 @@ import { ref } from 'vue'
 import DependencyRow from "@/components/DependencyRow";
 import {ERROR_STATUS, LOADING_STATUS, NO_STATUS, SUCCESS_STATUS} from "@/config/constants";
 import {processDependency} from "@/composables/request";
+import {getErrorMessage, getErrorTrace} from "@/composables/errorParser";
 
 const rows = ref([
   { name: 'PrestaShop Marketplace in your Back Office', module: 'ps_mbo', status: NO_STATUS, errorMessage: null, trace: null },
@@ -55,12 +56,21 @@ const sendRequest = async (row) => {
 
   try {
     const response = await processDependency(row.module)
-    if (response.data) {
+    console.log(response)
+    if (response.data && typeof response.data === 'boolean') {
       row.status = SUCCESS_STATUS
+    } else if (response.data) {
+      row.status = ERROR_STATUS
+      row.errorMessage = String(response.data)
+    } else {
+      row.status = ERROR_STATUS
+      row.errorMessage = 'Failed, see browser console for details'
     }
   } catch(err) {
     console.log(err)
     row.status = ERROR_STATUS
+    row.errorMessage = getErrorMessage(err)
+    row.trace = getErrorTrace(err)
   }
 }
 
@@ -70,7 +80,7 @@ const sendRequest = async (row) => {
 #content.bootstrap .panel>h3 {
   display: flex;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 .panel>h3>.icon-cogs {
   display: block;
@@ -78,6 +88,6 @@ const sendRequest = async (row) => {
   font-size: 42px;
 }
 .depRowsAllWrap {
-  margin-bottom: 40px;
+  margin-bottom: 45px;
 }
 </style>

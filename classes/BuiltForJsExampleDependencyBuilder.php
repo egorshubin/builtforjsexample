@@ -6,8 +6,8 @@ class BuiltForJsExampleDependencyBuilder extends BuiltForJsExampleBasicHelper
 {
     public function processDependency()
     {
-        $moduleName = Tools::getValue1('module');
+        $moduleName = Tools::getValue('module');
 
-
+        throw new BuiltForJsExampleException('Could not do it!');
     }
 }

@@ -9,17 +9,14 @@ class BuiltForJsExampleErrorHelper extends BuiltForJsExampleBasicHelper
         $statusCode = $exception->getCode();
 
         $trace = $exception->getTraceAsString();
-        $hasTrace = true;
 
         if ($statusCode == 400) {
             $trace = '';
-            $hasTrace = false;
         }
 
         $return = [
-            'message' => $exception->getMessage(),
+            'detail' => $exception->getMessage(),
             'trace' => $trace,
-            'hasTrace' => $hasTrace,
         ];
 
         header("HTTP/1.1 $statusCode " . $this->getStatusCodeMessage($statusCode));

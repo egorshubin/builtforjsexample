@@ -4,15 +4,14 @@
       <DependencyIcon :status="props.status"></DependencyIcon>
       <span class="row-name">{{ props.name }}</span>
     </div>
-    <div class="depRowError" v-if="props.errorMessage">
-      {{props.errorMessage}}
-    </div>
+    <ErrorMessage :error-message="props.errorMessage" :trace="trace"></ErrorMessage>
   </div>
 </template>
 
 <script setup>
 import { defineProps} from 'vue'
 import DependencyIcon from "@/components/DependencyIcon";
+import ErrorMessage from "@/components/ErrorMessage";
 const props = defineProps({
   name: String,
   status: Number,
@@ -31,7 +30,7 @@ const props = defineProps({
   font-weight: bold;
 }
 .depRowWrapper {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 14px;
 }
 </style>
