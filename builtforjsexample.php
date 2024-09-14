@@ -37,10 +37,12 @@ if (file_exists($autoloadPath)) {
 }
 
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleInstallHelper.php';
+require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleErrorHelper.php';
 
 class BuiltForJsExample extends Module
 {
     protected $iHelper;
+    public $eHelper;
     protected $config_form = false;
 
     private $container;
@@ -71,6 +73,7 @@ class BuiltForJsExample extends Module
         }
 
         $this->iHelper = new BuiltForJsExampleInstallHelper($this);
+        $this->eHelper = new BuiltForJsExampleErrorHelper($this);
     }
 
     public function install()

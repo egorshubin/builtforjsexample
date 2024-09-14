@@ -1,5 +1,7 @@
 <?php
 
+require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/BuiltForJsExampleDependencyBuilder.php';
+
 class AdminBuiltForJsExampleController extends ModuleAdminController
 {
     public function __construct()
@@ -18,6 +20,13 @@ class AdminBuiltForJsExampleController extends ModuleAdminController
 
     public function ajaxProcessProcessDependency()
     {
-        exit(json_encode(true));
+        try {
+            $dependencyBuilder = new BuiltForJsExampleDependencyBuilder($this->module);
+            $dependencyBuilder->processDependency();
+
+            exit(json_encode(true));
+        } catch (Exception $exception) {
+            $this->module->eHelper->throwError($exception);
+        }
     }
 }
