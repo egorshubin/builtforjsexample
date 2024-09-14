@@ -36,4 +36,32 @@ class BuiltForJsExampleDependencyBuilder extends BuiltForJsExampleBasicHelper
 
         return true;
     }
+
+    public function areDependenciesMet(): bool
+    {
+        $moduleNames = [
+            'ps_mbo',
+            'ps_accounts',
+            'ps_eventbus',
+        ];
+
+        $res = true;
+
+        foreach ($moduleNames as $moduleName) {
+            $res = $this->isDependencyMet($moduleName);
+            if (!$res) {
+                return false;
+            }
+        }
+
+        return $res;
+    }
+
+    protected function isDependencyMet($moduleName): bool
+    {
+        $moduleManagerBuilder = ModuleManagerBuilder::getInstance();
+        $moduleManager = $moduleManagerBuilder->build();
+
+        return $moduleManager->isInstalled($moduleName) && $moduleManager->isEnabled($moduleName);
+    }
 }

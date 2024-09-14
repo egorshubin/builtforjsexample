@@ -24,7 +24,6 @@
 *  International Registered Trademark & Property of PrestaShop SA
 */
 
-use Prestashop\ModuleLibMboInstaller\DependencyBuilder;
 use PrestaShop\PrestaShop\Core\Addon\Module\ModuleManagerBuilder;
 
 if (!defined('_PS_VERSION_')) {
@@ -38,12 +37,14 @@ if (file_exists($autoloadPath)) {
 
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleInstallHelper.php';
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleErrorHelper.php';
+require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/BuiltForJsExampleDependencyBuilder.php';
 
 class BuiltForJsExample extends Module
 {
     protected $iHelper;
     public $eHelper;
     protected $config_form = false;
+    public $dependencyBuilder;
 
     private $container;
 
@@ -74,6 +75,7 @@ class BuiltForJsExample extends Module
 
         $this->iHelper = new BuiltForJsExampleInstallHelper($this);
         $this->eHelper = new BuiltForJsExampleErrorHelper($this);
+        $this->dependencyBuilder = new BuiltForJsExampleDependencyBuilder($this);
     }
 
     public function install()
@@ -108,10 +110,7 @@ class BuiltForJsExample extends Module
 
     public function displayContent()
     {
-        # Load dependencies manager
-        $mboInstaller = new \Prestashop\ModuleLibMboInstaller\DependencyBuilder($this);
-
-        if( !$mboInstaller->areDependenciesMet() )
+        if( !$this->dependencyBuilder->areDependenciesMet() )
         {
             $this->context->smarty->assign([
                 'pathApp' => $this->getPathUri() . 'views/js/dependency_builder/js/app.js',
