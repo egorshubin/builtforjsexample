@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import DependencyRow from "@/components/DependencyRow";
 import {ERROR_STATUS, LOADING_STATUS, NO_STATUS, SUCCESS_STATUS} from "@/config/constants";
 import {processDependency} from "@/composables/request";
@@ -45,11 +45,14 @@ const retry = async () => {
   }
   buttonText.value = 'Retry'
   isRetrying.value = false
+  if (!hasErrors.value) {
+    location.reload()
+  }
 }
 
-// const hasErrors = computed(() => {
-//   return rows.value.some(row => row.status === 'error')
-// })
+const hasErrors = computed(() => {
+  return rows.value.some(row => row.status === ERROR_STATUS)
+})
 
 const sendRequest = async (row) => {
   row.status = LOADING_STATUS
