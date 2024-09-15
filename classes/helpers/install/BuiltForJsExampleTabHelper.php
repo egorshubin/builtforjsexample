@@ -11,6 +11,7 @@ class BuiltForJsExampleTabHelper extends BuiltForJsExampleBasicHelper
         $res = true;
 
         $res &= $this->installOneTab('Prestashop Integration Framework Module', 'AdminBuiltForJsExample');
+        $res &= $this->installOneTab('Help', 'AdminBuiltForJsExampleHelp');
 
         return $res;
     }
@@ -20,6 +21,7 @@ class BuiltForJsExampleTabHelper extends BuiltForJsExampleBasicHelper
         $res = true;
 
         $res &= $this->uninstallOneTab('AdminBuiltForJsExample');
+        $res &= $this->uninstallOneTab('AdminBuiltForJsExampleHelp');
 
         return $res;
     }

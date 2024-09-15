@@ -35,7 +35,7 @@ if (file_exists($autoloadPath)) {
     require_once $autoloadPath;
 }
 
-require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleInstallHelper.php';
+require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/install/BuiltForJsExampleInstallHelper.php';
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/BuiltForJsExampleDependencyBuilder.php';
 
 class BuiltForJsExample extends Module
@@ -72,12 +72,14 @@ class BuiltForJsExample extends Module
 
     public function install()
     {
-        return parent::install();
+        $iHelper = new BuiltForJsExampleInstallHelper($this);
+        return $iHelper->install() && parent::install();
     }
 
     public function uninstall()
     {
-        return parent::uninstall();
+        $iHelper = new BuiltForJsExampleInstallHelper($this);
+        return $iHelper->uninstall() && parent::uninstall();
     }
 
     public function enable($force_all = false)
@@ -99,7 +101,8 @@ class BuiltForJsExample extends Module
     {
         // added controller for easier ajax queries
         // moved content rendering to $this->displayContent() method
-        Tools::redirectAdmin($this->context->link->getAdminLink('AdminBuiltForJsExample'));
+        Tools::redirectAdmin($this->context->link->getAdminLink('AdminBuiltForJsExample') .
+            $this->createAnticacheString());
     }
 
     public function displayContent()
@@ -191,5 +194,59 @@ class BuiltForJsExample extends Module
     public function getService($serviceName)
     {
         return $this->container->getService($serviceName);
+    }
+
+    public function displayNav($active_url)
+    {
+        try {
+            $this->context->smarty->assign([
+                'main_url' => $this->context->link->getAdminLink('AdminBuiltForJsExample') .
+                    $this->createAnticacheString(),
+                'help_url' => $this->context->link->getAdminLink('AdminBuiltForJsExampleHelp') .
+                    $this->createAnticacheString(),
+                'active_url' => $active_url,
+            ]);
+        } catch (PrestaShopException $e) {
+            echo $e->getMessage();
+        }
+
+        try {
+            return $this->context->smarty->fetch(_PS_MODULE_DIR_ . $this->name . '/views/templates/hook/nav.tpl');
+        } catch (SmartyException $e) {
+            echo $e->getMessage();
+        }
+
+        return false;
+    }
+
+    public function displayHelp()
+    {
+        return $this->display(__FILE__, 'help.tpl');
+    }
+
+    public function makeAnticache()
+    {
+        return rand(1, 1000000);
+    }
+
+    // it is necessary for litespeed servers that can cache module configuration page
+    public function createAnticacheString()
+    {
+        return '&anticache=' . $this->makeAnticache();
+    }
+
+    public function startsWith($string, $startString)
+    {
+        $len = Tools::strlen($startString);
+
+        return Tools::substr($string, 0, $len) === $startString;
+    }
+
+    public function hookdisplayBackOfficeHeader()
+    {
+        if (Tools::getValue('configure') == $this->name ||
+            $this->startsWith(Tools::getValue('controller'), 'AdminBuiltForJsExample')) {
+            $this->context->controller->addCSS($this->_path . 'views/css/style.css');
+        }
     }
 }

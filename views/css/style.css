@@ -1,0 +1,111 @@
+/* nav tabs */
+
+.op_tabs li {
+    margin-right: 5px;
+}
+.bootstrap .nav-pills.op_tabs>li.active>a, .bootstrap .nav-pills.op_tabs>li.active>a:focus, .bootstrap .nav-pills.op_tabs>li.active>a:hover {
+    background-color: #333 !important;
+    color: white !important;
+    cursor: default;
+}
+.bootstrap .nav>li>a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.bootstrap .nav>li.active>a {
+    border-color: #333;
+}
+.bootstrap .nav-pills.op_tabs a.list-group-item:focus, .bootstrap .nav-pills.op_tabs a.list-group-item:hover {
+    background-color: #444;
+    border-color: #444;
+    color: #00aff0 !important;
+}
+.op_tabs li i {
+    font-size: 18px;
+    position: relative;
+    top: 1px;
+}
+
+/* Advertise modules */
+
+.module-info-wrap {
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.module-info-img-wrap {
+    width: 57px;
+    margin-right: 20px;
+}
+.img-block {
+    display: block;
+    width: 57px;
+    height: 57px;
+}
+.img-block-stats {
+    background-image: url("../img/stats.png");
+}
+.img-block-import {
+    background-image: url("../img/csv57.png");
+}
+.img-block-faq {
+    background-image: url("../img/faq.png");
+}
+
+.module-info-description-wrap span {
+    color: #555;
+    font-size: 14px;
+    display: block;
+}
+.module-info-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.bootstrap .learn-more {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* instructions */
+
+.bootstrap .op-pdf-instructions {
+    margin-bottom: 15px;
+}
+.bootstrap .op-pdf-instructions a {
+    font-size: 18px;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+}
+
+.bootstrap .op-pdf-instructions a:hover {
+    text-decoration: none;
+}
+
+.bootstrap .op-pdf-instructions a .fa-file-pdf {
+    font-size: 36px;
+    margin-right: 10px;
+    color: #333;
+}
+.bootstrap .op-pdf-instructions a .fa-youtube {
+    font-size: 36px;
+    margin-right: 10px;
+}
+.op-pdf-instructions-link-text {
+    text-decoration: underline;
+}
+.bootstrap .op-pdf-instructions a:hover .op-pdf-instructions-link-text {
+    text-decoration: none;
+}
+
+.op-pdf-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-image: url("../img/pdf-file.png");
+    margin-left: 10px;
+    margin-right: 20px;
+}

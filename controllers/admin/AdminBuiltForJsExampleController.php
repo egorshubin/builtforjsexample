@@ -14,6 +14,7 @@ class AdminBuiltForJsExampleController extends ModuleAdminController
 
     public function initContent()
     {
+        $this->content .= $this->module->displayNav('main');
         $this->content .= $this->module->displayContent();
 
         parent::initContent();
