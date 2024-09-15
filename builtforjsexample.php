@@ -157,7 +157,25 @@ class BuiltForJsExample extends Module
                 $this->context->smarty->assign('urlCloudsync', "https://assets.prestashop3.com/ext/cloudsync-merchant-sync-consent/latest/cloudsync-cdc.js");
 
                 Media::addJsDef([
-                    'contextPsEventbus' => $eventbusPresenterService->expose($this, ['info', 'modules', 'themes'])
+                    'contextPsEventbus' => $eventbusPresenterService->expose($this, [
+                        'categories',
+                        'customers',
+                        'employees',
+                        'images',
+                        'info',
+                        'languages',
+                        'manufacturers',
+                        'modules',
+                        'orders',
+                        'products',
+                        'stocks',
+                        'stores',
+                        'suppliers',
+                        'taxonomies',
+                        'themes',
+                        'translations',
+                        'wishlists',
+                    ])
                 ]);
             }
         }
