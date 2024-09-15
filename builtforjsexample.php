@@ -36,15 +36,11 @@ if (file_exists($autoloadPath)) {
 }
 
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleInstallHelper.php';
-require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/helpers/BuiltForJsExampleErrorHelper.php';
 require_once _PS_MODULE_DIR_ . 'builtforjsexample/classes/BuiltForJsExampleDependencyBuilder.php';
 
 class BuiltForJsExample extends Module
 {
-    protected $iHelper;
-    public $eHelper;
     protected $config_form = false;
-    public $dependencyBuilder;
 
     private $container;
 
@@ -72,10 +68,6 @@ class BuiltForJsExample extends Module
                 $this->getLocalPath()
             );
         }
-
-        $this->iHelper = new BuiltForJsExampleInstallHelper($this);
-        $this->eHelper = new BuiltForJsExampleErrorHelper($this);
-        $this->dependencyBuilder = new BuiltForJsExampleDependencyBuilder($this);
     }
 
     public function install()
@@ -90,12 +82,14 @@ class BuiltForJsExample extends Module
 
     public function enable($force_all = false)
     {
-        return parent::enable($force_all) && $this->iHelper->enable();
+        $iHelper = new BuiltForJsExampleInstallHelper($this);
+        return parent::enable($force_all) && $iHelper->enable();
     }
 
     public function disable($force_all = false)
     {
-        return $this->iHelper->disable() && parent::disable($force_all);
+        $iHelper = new BuiltForJsExampleInstallHelper($this);
+        return $iHelper->disable() && parent::disable($force_all);
     }
 
     /**
@@ -110,7 +104,9 @@ class BuiltForJsExample extends Module
 
     public function displayContent()
     {
-        if( !$this->dependencyBuilder->areDependenciesMet() )
+        $dependencyBuilder = new BuiltForJsExampleDependencyBuilder($this);
+
+        if( !$dependencyBuilder->areDependenciesMet() )
         {
             $this->context->smarty->assign([
                 'pathApp' => $this->getPathUri() . 'views/js/dependency_builder/js/app.js',
@@ -151,8 +147,8 @@ class BuiltForJsExample extends Module
 
         if ($moduleManager->isInstalled("ps_eventbus")) {
             $eventbusModule =  \Module::getInstanceByName("ps_eventbus");
-            if (version_compare($eventbusModule->version, '1.9.0', '>=')) {
 
+            if (version_compare($eventbusModule->version, '1.9.0', '>=')) {
                 $eventbusPresenterService = $eventbusModule->getService('PrestaShop\Module\PsEventbus\Service\PresenterService');
 
                 $this->context->smarty->assign('urlCloudsync', "https://assets.prestashop3.com/ext/cloudsync-merchant-sync-consent/latest/cloudsync-cdc.js");
