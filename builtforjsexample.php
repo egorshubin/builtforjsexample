@@ -186,14 +186,14 @@ class BuiltForJsExample extends Module
 
         // Load context for PsBilling
         $billingFacade = $this->getService('builtforjsexample.ps_billings_facade');
-        $partnerLogo = $this->getLocalPath() . 'logo.png';
+        $partnerLogo = $this->getLocalPath() . 'views/img/partnerLogo.png';
 
         // Billing
         Media::addJsDef($billingFacade->present([
             'logo' => $partnerLogo,
             'tosLink' => 'https://www.prestashop.com/en/prestashop-account-terms-conditions',
             'privacyLink' => 'https://www.prestashop.com/en/privacy-policy',
-            'emailSupport' => 'your@email.tld',
+            'emailSupport' => 'support@prestashop.com',
         ]));
 
         $this->context->smarty->assign('urlBilling', "https://unpkg.com/@prestashopcorp/billing-cdc/dist/bundle.js");
