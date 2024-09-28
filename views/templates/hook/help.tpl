@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col-xs-9">
                 <div class="op-pdf-instructions">
-                    <a href="#" target="_blank"><i
+                    <a href="/modules/builtforjsexample/docs/integration_modules_setup.pdf" target="_blank"><i
                                 class="op-pdf-icon"></i> <span
-                                class="op-pdf-instructions-link-text">{l s='Text instructions in PDF' mod='builtforjsexample'}</span></a>
+                                class="op-pdf-instructions-link-text">{l s='Dependency modules manual installation instructions' mod='builtforjsexample'}</span></a>
                 </div>
             </div>
         </div>
