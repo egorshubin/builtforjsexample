@@ -1,6 +1,7 @@
 <template>
   <div class="panel">
     <h3><i class="icon-cogs"></i>For this module to work properly, you need to set up the following modules first</h3>
+    <GlobalErrorMessage v-if="hasErrors"></GlobalErrorMessage>
     <div class="depRowsAllWrap">
       <DependencyRow
           v-for="row in rows"
@@ -24,6 +25,7 @@ import DependencyRow from "@/components/DependencyRow";
 import {ERROR_STATUS, LOADING_STATUS, NO_STATUS, SUCCESS_STATUS} from "@/config/constants";
 import {processDependency} from "@/composables/request";
 import {getErrorMessage, getErrorTrace} from "@/composables/errorParser";
+import GlobalErrorMessage from "@/components/GlobalErrorMessage";
 
 const rows = ref([
   { name: 'PrestaShop Marketplace in your Back Office', module: 'ps_mbo', status: NO_STATUS, errorMessage: null, trace: null },
