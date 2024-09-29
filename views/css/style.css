@@ -109,3 +109,13 @@
     margin-left: 10px;
     margin-right: 20px;
 }
+
+/* pif */
+.show-pif {
+    border-bottom: 1px dashed black;
+    font-size: 14px;
+    cursor: pointer
+}
+.show-pif-wrap, .pif-body {
+    margin-bottom: 30px;
+}
